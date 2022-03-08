@@ -34,16 +34,12 @@ class _MyHomePageState extends State<MyHomePage> {
       if (key != 'API') {
         corona19.add(Corona.fromJson(value));
       }
+      setState(() {});
     });
     return;
-    final jsonCorona = jsonResult['korea'];
-    Corona corona = Corona.fromJson(jsonCorona);
-    corona19.add(corona);
-
     // corona19.clear();
     // jsonCorona.forEach((e) {
     // });
-    setState(() {});
   }
 
   @override
@@ -52,6 +48,14 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         backgroundColor: Colors.purple,
         title: Text('Covid19Status'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: () {
+              fetch();
+            },
+          )
+        ],
       ),
       body: Column(
         children: [
@@ -63,20 +67,98 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Row(
             children: [
-              Text('코로나 바이러스 감염증-19 국내 발생현황(03.02 00시 기준)'),
+              Text(
+                '코로나 바이러스 감염증-19 국내 발생현황',
+                style: TextStyle(fontSize: 22),
+              ),
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Center(
-                  child: corona19.isEmpty
-                      ? Container()
-                      : Text('전체 확진자 수:${corona19[0].totalCnt}'),
+                Text(
+                  '전체 확진자 수:${corona19[0].totalCnt}',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.red,
+                  ),
                 ),
               ],
             ),
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Image.network(
+                  'https://ichef.bbci.co.uk/news/1024/branded_korean/90FF/production/_116191173_gettyimages-1212213051.jpg',
+                  height: 120,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ],
+          ),
+          ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.all(20.0),
+            children: <Widget>[
+              Center(
+                child: Text(
+                  '서울 : ${corona19[2].totalCnt}',
+                  style: TextStyle(fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '부산 : ${corona19[3].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '대구: ${corona19[4].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '인천 : ${corona19[5].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '광주 : ${corona19[6].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '대전 : ${corona19[7].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '울산 : ${corona19[8].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '경기 : ${corona19[9].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '제주 : ${corona19[3].totalCnt}',
+                  style: TextStyle(height: 2, fontSize: 22),
+                ),
+              )
+            ],
           )
         ],
       ),
