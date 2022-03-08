@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:corona19/vaccination.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,6 +15,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final corona19 = <Corona>[];
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -57,110 +59,132 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Column(
-        children: [
-          Center(
-            child: Text(
-              '코로나19 상황판',
-              style: TextStyle(height: 3, fontSize: 25),
-            ),
-          ),
-          Row(
-            children: [
-              Text(
-                '코로나 바이러스 감염증-19 국내 발생현황',
-                style: TextStyle(fontSize: 22),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: _selectedIndex == 0
+          ? Column(
               children: [
-                Text(
-                  '전체 확진자 수:${corona19[0].totalCnt}',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.red,
+                Center(
+                  child: Text(
+                    '코로나19 상황판',
+                    style: TextStyle(height: 2, fontSize: 25),
                   ),
                 ),
+                Row(
+                  children: [
+                    Text(
+                      '코로나 바이러스 감염증-19 국내 발생현황',
+                      style: TextStyle(fontSize: 22),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '전체 확진자 수:${corona19[0].totalCnt}',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Image.network(
+                        'https://ichef.bbci.co.uk/news/1024/branded_korean/90FF/production/_116191173_gettyimages-1212213051.jpg',
+                        height: 120,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: ListView(
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(20.0),
+                    children: <Widget>[
+                      Center(
+                        child: Text(
+                          '서울 : ${corona19[2].totalCnt}',
+                          style: TextStyle(fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '부산 : ${corona19[3].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '대구: ${corona19[4].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '인천 : ${corona19[5].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '광주 : ${corona19[6].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '대전 : ${corona19[7].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '울산 : ${corona19[8].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '경기 : ${corona19[9].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          '제주 : ${corona19[3].totalCnt}',
+                          style: TextStyle(height: 2, fontSize: 22),
+                        ),
+                      )
+                    ],
+                  ),
+                )
               ],
-            ),
+            )
+          : vaccination(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Image.network(
-                  'https://ichef.bbci.co.uk/news/1024/branded_korean/90FF/production/_116191173_gettyimages-1212213051.jpg',
-                  height: 120,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            label: 'Business',
           ),
-          ListView(
-            shrinkWrap: true,
-            padding: const EdgeInsets.all(20.0),
-            children: <Widget>[
-              Center(
-                child: Text(
-                  '서울 : ${corona19[2].totalCnt}',
-                  style: TextStyle(fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '부산 : ${corona19[3].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '대구: ${corona19[4].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '인천 : ${corona19[5].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '광주 : ${corona19[6].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '대전 : ${corona19[7].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '울산 : ${corona19[8].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '경기 : ${corona19[9].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              ),
-              Center(
-                child: Text(
-                  '제주 : ${corona19[3].totalCnt}',
-                  style: TextStyle(height: 2, fontSize: 22),
-                ),
-              )
-            ],
-          )
         ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: (value) {
+          _selectedIndex = value;
+          setState(() {});
+        },
       ),
     );
   }
