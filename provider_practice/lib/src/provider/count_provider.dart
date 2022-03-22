@@ -5,10 +5,12 @@ class CountProvider extends ChangeNotifier {
 
   add() {
     _count++;
+    notifyListeners();
   }
 
   remove() {
     _count--;
+    notifyListeners();
   }
 
 }
