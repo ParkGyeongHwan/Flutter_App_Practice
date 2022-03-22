@@ -35,14 +35,21 @@ class _vaccinationState extends State<vaccination> {
       }
       setState(() {});
     });
-    print('build');
+    //print('build');
     return;
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('hi'),
+          title: Text('전국백신접종현황'),
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.refresh),
+                onPressed: () {
+                  fetch();
+                })
+          ],
         ),
         body: Text(
           '전국 백신접종자 : ${vaccination[0].vaccine_1.vaccine_1}',
