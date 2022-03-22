@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_practice/src/provider/count_provider.dart';
 
 class CountHomeWidget extends StatelessWidget {
   const CountHomeWidget({ Key? key }) : super(key: key);
@@ -7,7 +9,7 @@ class CountHomeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: Text(
-          'count',
+          Provider.of<CountProvider>(context).count.toString(),
           style: TextStyle(fontSize: 80),
           ),
         );
