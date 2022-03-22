@@ -8,10 +8,14 @@ class CountHomeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-        child: Text(
-          Provider.of<CountProvider>(context).count.toString(),
-          style: TextStyle(fontSize: 80),
-          ),
+        child: Consumer<CountProvider>(
+          builder:  (context,provider,child) {
+            return Text(
+            provider.count.toString(),
+            style: TextStyle(fontSize: 80),
+            );
+          },
+        ),
         );
   }
 }
