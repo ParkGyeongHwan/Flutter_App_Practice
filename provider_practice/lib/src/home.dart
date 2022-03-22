@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:provider_practice/src/provider/count_provider.dart';
 import 'package:provider_practice/src/ui/count_home_widget.dart';
 
 class Home extends StatelessWidget {
-  const Home({ Key? key }) : super(key: key);
+  Home({ Key? key }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
+    final _countProvider = Provider.of<CountProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('provider sample'),
@@ -16,11 +20,15 @@ class Home extends StatelessWidget {
         children: [
         IconButton(
           icon: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () {
+            _countProvider.add();
+          },
         ),
           IconButton(
             icon: Icon(Icons.remove),
-            onPressed: () {},
+            onPressed: () {
+              _countProvider.remove();
+            },
           ),
       ],
       ),
